@@ -15,3 +15,18 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
+
+
+Route::group("/user",function(){
+
+    Route::post("/login","user/login");
+
+    Route::post("/register","user/register");
+
+});
+
+Route::group("/user",function(){
+
+    Route::post("/edit","user/edit");
+
+});

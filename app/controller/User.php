@@ -6,6 +6,7 @@ use app\BaseController;
 use app\model\User as UserModel;
 use app\util\Res;
 use Firebase\JWT\JWT;
+use app\util\Upload;
 
 class User extends BaseController
 {
@@ -66,10 +67,37 @@ class User extends BaseController
             );
             // 使用密钥进行签名
             $token = JWT::encode($payload, $secretKey, 'HS256');
-            return $this->result->success("登录成功", $token);
+            return $this->result->success("登录成功", [
+                "user"=>$user,
+                "data"=>$token
+            ]
+    );
         }
         return $this->result->error("登录失败");
 
     }
+
+    function edit(Request $reqeust)
+    {
+        $upload = new Upload();
+
+        $post = $reqeust->post();
+
+        $user = UserModel::where("id", $post["id"])->find();
+
+        $url = $upload->file($reqeust);
+
+        $res = $user->save([
+            "nickname" => $post["nickname"],
+            "email" => $post["email"],
+            "avatar" => $url
+        ]);
+
+        if ($res) {
+            return $this->result->success("编辑数据成功", $res);
+        }
+        return $this->result->error("编辑数据失败");
+    }
+
 
 }
