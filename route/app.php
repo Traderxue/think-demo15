@@ -43,4 +43,6 @@ Route::group("/type",function(){
 
     Route::get("/getrun/:u_id","type/getRun");
 
+    Route::get("/price/:type","type/getPrice");
+
 });

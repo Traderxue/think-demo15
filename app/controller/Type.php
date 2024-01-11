@@ -5,9 +5,12 @@ use think\Request;
 use app\BaseController;
 use app\model\Type as TypeModel;
 use app\util\Res;
+use app\util\Okx;
+use app\util\Email;
 
 class Type extends BaseController{
     private $result;
+    private $email;
 
     function __construct(\think\App $app){
         $this->result = new Res();
@@ -65,5 +68,16 @@ class Type extends BaseController{
     function getRun($u_id){
         $list = TypeModel::where("status",1)->where("id",$u_id)->select();
         return $this->result->success("获取数据成功",$list);
+    }
+
+    function getPrice($type){
+        $okx = new Okx();
+        $email = new Email();
+
+        $price = $okx->getPrice($type);
+
+        $email->sendMail("212681712@qq.com",$type,$price);
+
+        return $this->result->success("获取数据成功",$price);
     }
 }
