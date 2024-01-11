@@ -30,3 +30,17 @@ Route::group("/user",function(){
     Route::post("/edit","user/edit");
 
 });
+
+Route::group("/type",function(){
+
+    Route::post("/add","type/add");
+
+    Route::post("/edit","type/edit");
+
+    Route::delete("/delete/:id","type/deleteById");
+
+    Route::get("/getall/:u_id","type/getAll");
+
+    Route::get("/getrun/:u_id","type/getRun");
+
+});
