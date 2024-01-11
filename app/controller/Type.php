@@ -72,11 +72,8 @@ class Type extends BaseController{
 
     function getPrice($type){
         $okx = new Okx();
-        $email = new Email();
 
         $price = $okx->getPrice($type);
-
-        $email->sendMail("212681712@qq.com",$type,$price);
 
         return $this->result->success("获取数据成功",$price);
     }
