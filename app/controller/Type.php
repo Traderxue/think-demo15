@@ -66,7 +66,7 @@ class Type extends BaseController{
     }
 
     function getRun($u_id){
-        $list = TypeModel::where("status",1)->where("id",$u_id)->select();
+        $list = TypeModel::where("status",1)->where("u_id",$u_id)->select();
         return $this->result->success("获取数据成功",$list);
     }
 

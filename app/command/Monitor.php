@@ -34,6 +34,7 @@ class Monitor extends Command
             $types = TypeModel::where("status", 1)->select();
             foreach ($types as $type) {
                 $price = $okx->getPrice($type->type);
+                $output->writeln("{$type->type}价格为{$price}");
                 if ($type->up == 1) {
                     if ((float) $price > (float) $type->price) {
                         $user = UserModel::where('id', $type->u_id)->find();

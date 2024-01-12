@@ -94,9 +94,14 @@ class User extends BaseController
         ]);
 
         if ($res) {
-            return $this->result->success("编辑数据成功", $res);
+            return $this->result->success("编辑数据成功", $user);
         }
         return $this->result->error("编辑数据失败");
+    }
+
+    function getById($id){
+        $user = UserModel::where('id',$id)->find();
+        return $this->result->success("获取数据成功",$user);
     }
 
 
